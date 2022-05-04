@@ -14,7 +14,12 @@ public abstract class AuthorizedRequestHandler<TRequest, TResult> : DbRequestHan
         UserProvider = serviceProvider.GetRequiredService<IUserProvider>();
     }
 
-    public Task<TResult> Handle(TRequest request, CancellationToken cancel)
+    protected override Task<TResult> Handle(TRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Task<TResult> Handle(TRequest request, CancellationToken cancel)
     {
         return Handle(request);
     }

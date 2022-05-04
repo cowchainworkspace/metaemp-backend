@@ -9,5 +9,7 @@ public class FileConfiguration : IEntityTypeConfiguration<File>
     public void Configure(EntityTypeBuilder<File> builder)
     {
         builder.HasKey(f => f.Id);
+
+        builder.ToTable("Files");
     }
 }

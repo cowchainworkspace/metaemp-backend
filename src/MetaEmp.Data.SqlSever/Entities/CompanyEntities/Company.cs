@@ -10,6 +10,7 @@ public class Company : IEntity
     public string WebSite { get; set; } = default!;
     public string Socials { get; set; } = default!;
     public short EmployersCount { get; set; }
+    public bool Approved { get; set; }
 
     #region Owner
 
