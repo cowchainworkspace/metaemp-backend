@@ -4,15 +4,15 @@ using MetaEmp.Application.Extensions;
 
 namespace MetaEmp.Application.Features.Auth.Check;
 
-public class AuthCheckQuery : IRequest<AuthCheckResult>
+public class AuthCheckRequest : IRequest<AuthCheckResult>
 {
 	/// <example>aspadmin</example>
 	public string Login { get; init; } = default!;
 }
 
-public class AuthCheckQueryValidator : AbstractValidator<AuthCheckQuery>
+public class AuthCheckRequestValidator : AbstractValidator<AuthCheckRequest>
 {
-	public AuthCheckQueryValidator()
+	public AuthCheckRequestValidator()
 	{
 		RuleFor(o => o.Login).NotEmpty().UserName();
 	}

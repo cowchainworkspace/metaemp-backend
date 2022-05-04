@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MetaEmp.Application.Services;
+using MetaEmp.Application.Interfaces;
 using MetaEmp.Core.Abstractions.Context;
 using MetaEmp.Core.Exceptions;
 using MetaEmp.Data.SqlSever.Entities;

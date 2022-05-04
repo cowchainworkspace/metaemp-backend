@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MetaEmp.Application.Services;
+using MetaEmp.Application.Interfaces;
 
 namespace MetaEmp.Application.Features.Auth.Refresh;
 

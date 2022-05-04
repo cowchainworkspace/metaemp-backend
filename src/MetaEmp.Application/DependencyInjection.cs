@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using System.Text;
 using FluentValidation.AspNetCore;
-using HashidsNet;
 using Mapster;
 using MediatR;
 using MediatR.Extensions.FluentValidation.AspNetCore;
@@ -22,8 +21,6 @@ public static class DependencyInjection
 {
 	public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
 	{
-		services.AddHashids(configuration.GetSection("Hashids").Bind);
-
 		services.RegisterServicesFromAssembly("MetaEmp.Application");
 
 		services.BindConfigurationOptions(configuration);
@@ -63,9 +60,7 @@ public static class DependencyInjection
 
 	private static void RegisterMappings(this IServiceCollection services)
 	{
-		var serviceProvider = services.BuildServiceProvider();
-		var hashids = serviceProvider.GetRequiredService<IHashids>();
-		var register = new MappingRegister(hashids);
+		var register = new MappingRegister();
 
 		register.Register(TypeAdapterConfig.GlobalSettings);
 	}

@@ -1,6 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using HashidsNet;
 using MetaEmp.Application.Models;
 using MetaEmp.Application.Options;
 using MetaEmp.Core.Abstractions.Context;
@@ -16,13 +15,11 @@ namespace MetaEmp.Infrastructure.Services.Internal;
 [Inject]
 public class AccessTokenGenerator
 {
-	private readonly IHashids _hashids;
 	private readonly IDatabaseContext _database;
 	private readonly JwtOptions _options;
 
-	public AccessTokenGenerator(IOptions<JwtOptions> optionsAccessor, IHashids hashids, IDatabaseContext database)
+	public AccessTokenGenerator(IOptions<JwtOptions> optionsAccessor, IDatabaseContext database)
 	{
-		_hashids = hashids;
 		_database = database;
 		_options = optionsAccessor.Value;
 	}
@@ -49,7 +46,7 @@ public class AccessTokenGenerator
 	{
 		var claims = new List<Claim>
 		{
-			new(Claims.Id, _hashids.EncodeLong(user.Id)),
+			new(Claims.Id, user.Id.ToString()),
 			new(Claims.UserName, user.NormalizedUserName)
 		};
 
@@ -60,7 +57,7 @@ public class AccessTokenGenerator
 		return claims;
 	}
 	
-	public Task<List<string>> GetUserRolesAsync(long userId, CancellationToken cancel)
+	public Task<List<string>> GetUserRolesAsync(Guid userId, CancellationToken cancel)
 	{
 		return (from u in _database.Set<AppUserRole>()
 			where u.UserId == userId

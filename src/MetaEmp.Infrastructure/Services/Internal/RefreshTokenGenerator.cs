@@ -38,8 +38,6 @@ public class RefreshTokenGenerator
 		{
 			Token = token,
 			UserId = user.Id,
-			IpAddress = HttpContext.GetIPAddress().ToString(),
-			UserAgent = HttpContext.GetUserAgent()
 		});
 
 		await _database.SaveChangesAsync(cancel: cancel);

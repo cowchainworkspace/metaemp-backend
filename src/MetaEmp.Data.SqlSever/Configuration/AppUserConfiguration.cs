@@ -8,6 +8,8 @@ internal class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
 {
 	public void Configure(EntityTypeBuilder<AppUser> builder)
 	{
+		builder.HasKey(e => e.Id);
+		
 		builder.Property(e => e.Description).HasMaxLength(256);
 		builder.Property(e => e.SecurityStamp).HasMaxLength(64);
 		builder.Property(e => e.ConcurrencyStamp).HasMaxLength(64);
