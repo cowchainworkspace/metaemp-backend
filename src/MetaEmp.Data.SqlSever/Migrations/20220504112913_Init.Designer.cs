@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetaEmp.Data.SqlSever.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20220503144944_InitDatabase")]
-    partial class InitDatabase
+    [Migration("20220504112913_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,9 +195,8 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Property<short>("EmployersCount")
                         .HasColumnType("smallint");
 
-                    b.Property<string>("Logo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("LogoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -217,9 +216,36 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LogoId")
+                        .IsUnique()
+                        .HasFilter("[LogoId] IS NOT NULL");
+
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Company");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.File", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("MimeType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("File");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -342,11 +368,17 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", b =>
                 {
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.File", "Logo")
+                        .WithOne()
+                        .HasForeignKey("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", "LogoId");
+
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.AppUser", "Owner")
                         .WithMany("Companies")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Logo");
 
                     b.Navigation("Owner");
                 });

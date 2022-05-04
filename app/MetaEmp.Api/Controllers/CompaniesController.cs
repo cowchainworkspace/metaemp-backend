@@ -1,13 +1,10 @@
 ﻿using MetaEmp.Api.Abstractions;
-using MetaEmp.Api.Attributes;
 using MetaEmp.Application.Features.Companies;
 using MetaEmp.Application.Features.Companies.All;
 using MetaEmp.Application.Features.Companies.Create;
 using MetaEmp.Application.Features.Companies.Delete;
-using MetaEmp.Application.Features.Companies.Logo;
 using MetaEmp.Application.Features.Companies.One;
 using MetaEmp.Application.Features.Companies.Update;
-using MetaEmp.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +14,7 @@ public class CompaniesController : ApiController
 {
     [HttpGet("{id:guid}")]
     [AllowAnonymous]
-    public async Task<CompanyResult> GetCompany(Guid id)
+    public async Task<CompanyResult> GetCompany([FromRoute] Guid id)
         => await Mediator.Send(new GetCompanyRequest(id));
 
     [HttpGet]
@@ -50,9 +47,4 @@ public class CompaniesController : ApiController
         await Mediator.Send(new DeleteCompanyRequest(id));
         return NoContent();
     }
-
-    [HttpPost("{id:guid}/logo")]
-    [AllowAnonymous]
-    public async Task<UploadCompanyLogoResult> UploadCompanyLogo([FromRoute] Guid id, IFormFile file)
-        => await Mediator.Send(new UploadCompanyLogoRequest {CompanyId = id, File = file});
 }

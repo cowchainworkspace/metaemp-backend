@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MetaEmp.Data.SqlSever.Migrations
 {
-    public partial class InitDatabase : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,20 @@ namespace MetaEmp.Data.SqlSever.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "File",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Data = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    MimeType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_File", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,9 +200,9 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     WebSite = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Socials = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Logo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmployersCount = table.Column<short>(type: "smallint", nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LogoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -199,6 +213,11 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         principalTable: "AppUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Company_File_LogoId",
+                        column: x => x.LogoId,
+                        principalTable: "File",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -244,6 +263,13 @@ namespace MetaEmp.Data.SqlSever.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Company_LogoId",
+                table: "Company",
+                column: "LogoId",
+                unique: true,
+                filter: "[LogoId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Company_OwnerId",
                 table: "Company",
                 column: "OwnerId");
@@ -277,6 +303,9 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppUsers");
+
+            migrationBuilder.DropTable(
+                name: "File");
         }
     }
 }
