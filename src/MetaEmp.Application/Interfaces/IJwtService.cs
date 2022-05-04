@@ -1,7 +1,7 @@
 ﻿using MetaEmp.Application.Features.Auth;
 using MetaEmp.Data.SqlSever.Entities;
 
-namespace MetaEmp.Application.Services;
+namespace MetaEmp.Application.Interfaces;
 
 public interface IJwtService
 {

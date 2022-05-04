@@ -7,7 +7,6 @@ public static class JsonConventions
 {
 	public static readonly JsonSerializerOptions CamelCase = new()
 	{
-		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 		PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 	};
 

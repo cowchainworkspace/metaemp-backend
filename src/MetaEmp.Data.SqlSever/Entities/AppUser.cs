@@ -1,11 +1,12 @@
 ﻿using MetaEmp.Core.Abstractions.Entities;
+using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
 using Microsoft.AspNetCore.Identity;
 
 namespace MetaEmp.Data.SqlSever.Entities;
 
-public class AppUser : IdentityUser<long>, IEntity
+public class AppUser : IdentityUser<Guid>, IEntity
 {
-	public override long Id { get; set; }
+	public override Guid Id { get; set; }
 	public override string UserName { get; set; } = default!;
 	public override string NormalizedUserName { get; set; } = default!;
 	public override string Email { get; set; } = default!;
@@ -24,6 +25,7 @@ public class AppUser : IdentityUser<long>, IEntity
 	public DateTime Registered { get; set; } = DateTime.UtcNow;
 
 
+	public virtual ICollection<Company>? Companies { get; set; }
 	public virtual ICollection<AppUserRole>? Roles { get; set; }
 	public virtual ICollection<AppRefreshToken>? RefreshTokens { get; set; }
 }

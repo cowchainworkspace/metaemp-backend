@@ -6,7 +6,7 @@ using MetaEmp.Data.SqlSever.Extensions;
 
 namespace MetaEmp.Application.Features.Auth.Check;
 
-internal class AuthCheckHandler : IRequestHandler<AuthCheckQuery, AuthCheckResult>
+internal class AuthCheckHandler : IRequestHandler<AuthCheckRequest, AuthCheckResult>
 {
 	private readonly IDatabaseContext _database;
 	
@@ -16,7 +16,7 @@ internal class AuthCheckHandler : IRequestHandler<AuthCheckQuery, AuthCheckResul
 	}
 
 
-	public async Task<AuthCheckResult> Handle(AuthCheckQuery request, CancellationToken cancel)
+	public async Task<AuthCheckResult> Handle(AuthCheckRequest request, CancellationToken cancel)
 	{
 		var user = await _database.Set<AppUser>().GetByLoginAsync(request.Login, cancel: cancel);
 		var authMethods = GetUserAuthMethods(user);

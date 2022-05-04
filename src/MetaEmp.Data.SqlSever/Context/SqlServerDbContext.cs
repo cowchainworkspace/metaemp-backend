@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetaEmp.Data.SqlSever.Context;
 
-public class SqlServerDbContext : IdentityDbContext<AppUser, AppRole, long,
-        IdentityUserClaim<long>, AppUserRole, IdentityUserLogin<long>, IdentityRoleClaim<long>,
-        IdentityUserToken<long>>,
+public class SqlServerDbContext : IdentityDbContext<AppUser, AppRole, Guid,
+        IdentityUserClaim<Guid>, AppUserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>,
+        IdentityUserToken<Guid>>,
     IDatabaseContext
 {
     public SqlServerDbContext(DbContextOptions options) : base(options)
@@ -16,7 +16,6 @@ public class SqlServerDbContext : IdentityDbContext<AppUser, AppRole, long,
         // To use AsNoTracking by default
         // ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
-
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -10,8 +10,6 @@ internal class AppUserRoleConfiguration : IEntityTypeConfiguration<AppUserRole>
 	{
 		builder.HasKey(e => new { e.UserId, e.RoleId });
 
-		builder.Property(e => e.RoleId).HasColumnType("smallint");
-
 		builder.HasOne(e => e.Role).WithMany(e => e.Users)
 				.HasForeignKey(e => e.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
