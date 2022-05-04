@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using Mapster;
-using MetaEmp.Application.Features.Companies;
-using MetaEmp.Application.Features.Companies.Create;
-using MetaEmp.Application.Features.Companies.Update;
-using MetaEmp.Application.Features.Users;
+using MetaEmp.Application.Features.Public.Companies;
+using MetaEmp.Application.Features.Public.Companies.Create;
+using MetaEmp.Application.Features.Public.Companies.Update;
+using MetaEmp.Application.Features.Public.Users;
 using MetaEmp.Core;
 using MetaEmp.Data.SqlSever.Entities;
 using MetaEmp.Data.SqlSever.Entities.CompanyEntities;

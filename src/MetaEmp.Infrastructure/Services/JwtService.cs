@@ -1,4 +1,4 @@
-﻿using MetaEmp.Application.Features.Auth;
+﻿using MetaEmp.Application.Features.Public.Auth;
 using MetaEmp.Application.Interfaces;
 using MetaEmp.Core.Abstractions.Context;
 using MetaEmp.Core.DependencyInjection;

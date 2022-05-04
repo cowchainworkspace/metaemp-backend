@@ -1,4 +1,4 @@
-﻿using MetaEmp.Application.Features.Auth;
+﻿using MetaEmp.Application.Features.Public.Auth;
 using MetaEmp.Data.SqlSever.Entities;
 
 namespace MetaEmp.Application.Interfaces;

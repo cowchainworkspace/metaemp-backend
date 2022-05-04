@@ -36,4 +36,8 @@
         <ProjectReference Include="..\..\src\MetaEmp.Infrastructure\MetaEmp.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Areas\Public" />
+    </ItemGroup>
+
 </Project>
