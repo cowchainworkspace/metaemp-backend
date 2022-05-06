@@ -31,8 +31,4 @@
       <ProjectReference Include="..\MetaEmp.Data.SqlSever\MetaEmp.Data.SqlSever.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Public" />
-    </ItemGroup>
-
 </Project>

@@ -13,12 +13,12 @@ public class CompaniesController : ProtectedController
     [AllowAnonymous]
     public async Task<CompanyResult[]> FilterCompanies(FilterCompaniesRequest request, CancellationToken cancel)
         => await Mediator.Send(request, cancel);
-    
+
     [HttpPost("{id}")]
     [AllowAnonymous]
-    public async Task<ActionResult> ToggleApprove([FromRoute] Guid id)
+    public async Task<ActionResult> SetStatus([FromRoute] Guid id, [FromBody] SetCompanyStatusRequest request)
     {
-        await Mediator.Send(new ToggleApproveRequest(id));
+        await Mediator.Send(request with {Id = id});
         return NoContent();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MetaEmp.Core.Abstractions.Entities;
 using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
+using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 using Microsoft.AspNetCore.Identity;
 
 namespace MetaEmp.Data.SqlSever.Entities;
@@ -23,6 +24,10 @@ public class AppUser : IdentityUser<Guid>, IEntity
 	public override bool LockoutEnabled { get; set; }
 	public override int AccessFailedCount { get; set; }
 	public DateTime Registered { get; set; } = DateTime.UtcNow;
+	
+	
+	public Guid SpecialistId { get; set; }
+	public virtual Specialist? SpecialistProfile { get; set; }
 
 
 	public virtual ICollection<Company>? Companies { get; set; }

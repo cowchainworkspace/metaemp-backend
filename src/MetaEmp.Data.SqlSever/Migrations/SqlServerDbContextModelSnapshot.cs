@@ -144,6 +144,9 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<Guid>("SpecialistId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -185,9 +188,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Approved")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1024)
@@ -207,9 +207,15 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("RejectedReason")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Socials")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("WebSite")
                         .IsRequired()
@@ -223,7 +229,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.File", b =>
@@ -247,6 +253,134 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Files", (string)null);
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Education", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AdditionalInfo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Degree")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SpecialistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Specialization")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UniversityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpecialistId");
+
+                    b.ToTable("Educations");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Experience", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CurrentlyWork")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SpecialistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("SpecialistId");
+
+                    b.ToTable("Experiences");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("About")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ListOfSkillsJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RejectedReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Specialists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -384,6 +518,45 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Education", b =>
+                {
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "Specialist")
+                        .WithMany("Educations")
+                        .HasForeignKey("SpecialistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Specialist");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Experience", b =>
+                {
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "Specialist")
+                        .WithMany("Experiences")
+                        .HasForeignKey("SpecialistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Specialist");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", b =>
+                {
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.AppUser", "User")
+                        .WithOne("SpecialistProfile")
+                        .HasForeignKey("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.AppRole", null)
@@ -432,6 +605,15 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("Roles");
+
+                    b.Navigation("SpecialistProfile");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", b =>
+                {
+                    b.Navigation("Educations");
+
+                    b.Navigation("Experiences");
                 });
 #pragma warning restore 612, 618
         }
