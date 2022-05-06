@@ -17,8 +17,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNetCore.Hashids" Version="2.0.0" />
-        <PackageReference Include="AspNetCore.Hashids.Int64" Version="2.0.2" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="10.4.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
         <PackageReference Include="Mapster" Version="7.3.0" />
@@ -31,6 +29,10 @@
     <ItemGroup>
       <ProjectReference Include="..\MetaEmp.Core\MetaEmp.Core.csproj" />
       <ProjectReference Include="..\MetaEmp.Data.SqlSever\MetaEmp.Data.SqlSever.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\Public" />
     </ItemGroup>
 
 </Project>

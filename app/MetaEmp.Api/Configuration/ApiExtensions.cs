@@ -32,6 +32,7 @@ public static class ApiExtensions
 		{
 			// Disable default ModelState validation (because we use only FluentValidation)
 			options.SuppressModelStateInvalidFilter = true;
+			options.SuppressInferBindingSourcesForParameters = true;
 		});
 	}
 }

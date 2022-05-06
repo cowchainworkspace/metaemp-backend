@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MetaEmp.Data.SqlSever.Entities;
 
-public class AppUserRole : IdentityUserRole<long>, IEntity
+public class AppUserRole : IdentityUserRole<Guid>, IEntity
 {
-	public override long UserId { get; set; }
-	public override long RoleId { get; set; }
+	public override Guid UserId { get; set; }
+	public override Guid RoleId { get; set; }
 
 
 	public virtual AppUser? User { get; set; }

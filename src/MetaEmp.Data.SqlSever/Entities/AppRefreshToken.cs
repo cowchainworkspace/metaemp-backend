@@ -9,7 +9,7 @@ public class AppRefreshToken : IEntity
 	/// </summary>
 	public string Token { get; set; } = default!;
 
-	public long UserId { get; set; }
+	public Guid UserId { get; set; }
 	public string UserAgent { get; set; } = default!;
 
 	/// <summary>

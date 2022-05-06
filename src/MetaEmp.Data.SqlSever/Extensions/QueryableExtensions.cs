@@ -1,4 +1,5 @@
 ﻿using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using MetaEmp.Core.Abstractions.Entities;
 using MetaEmp.Core.Exceptions;
 using MetaEmp.Core.Extensions;
@@ -15,6 +16,16 @@ public static class QueryableExtensions
         return await queryable.FirstOrDefaultAsync(cancel)
                ?? throw new NotFoundException(typeof(TEntity).Name.CamelCaseToWords() + " not found.");
     }
+
+    public static async Task<TEntity> FirstOr404Async<TEntity>(this IQueryable<TEntity> queryable,
+        Expression<Func<TEntity, bool>> predicate,
+        CancellationToken cancel = default)
+        where TEntity : class, IEntity
+    {
+        return await queryable.FirstOrDefaultAsync(predicate, cancel)
+               ?? throw new NotFoundException(typeof(TEntity).Name.CamelCaseToWords() + " not found.");
+    }
+
 
     public static IQueryable<TEntity> Filter<TEntity>(this IQueryable<TEntity> queryable, string? filter,
         string? sorting, int? skip, int? take)
