@@ -19,12 +19,12 @@ public class FilterCompaniesHandler : AuthorizedRequestHandler<FilterCompaniesRe
 
 
         var companies = await Context.Set<Company>()
-            .Where(c => c.Approved == request.Approved)
+            .Where(c => c.Status == request.Status)
             .ProjectToType<CompanyResult>()
             .ToArrayAsync(cancel);
 
         HttpContext.SetCountHeader(await Context.Set<Company>()
-            .Where(c => c.Approved == request.Approved)
+            .Where(c => c.Status == request.Status)
             .CountAsync(cancel));
 
         return companies;
