@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using MetaEmp.Application.Abstractions;
 using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
+using MetaEmp.Data.SqlSever.Enums;
 
 namespace MetaEmp.Application.Features.Public.Companies.Create;
 
@@ -16,6 +17,9 @@ public class CreateCompanyHandler : AuthorizedRequestHandler<CreateCompanyReques
         
         // TODO: remove this with userId from jwt token
         company.OwnerId = Guid.Parse("0DB1B904-6663-49A0-0DED-08DA2DC17E1A");
+        
+        company.Created = DateTime.UtcNow;
+        company.Status = ApprovingStatus.NotApproved;
         
         var createdEntity = await Context.Set<Company>().AddAsync(company);
 
