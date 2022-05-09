@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using System.Linq.Dynamic.Core;
+using Mapster;
 using MetaEmp.Application.Abstractions;
 using MetaEmp.Application.Extensions;
 using MetaEmp.Application.Features.Public.Companies;
@@ -17,16 +18,19 @@ public class FilterCompaniesHandler : AuthorizedRequestHandler<FilterCompaniesRe
     {
         //TODO: add checking for admin permissions
 
+        var companiesQuery = Context.Set<Company>().AsQueryable();
 
-        var companies = await Context.Set<Company>()
-            .Where(c => c.Status == request.Status)
-            .ProjectToType<CompanyResult>()
+        if (request.Name is not null)
+            companiesQuery = companiesQuery.Where("Name == @0", request.Name);
+        if (request.Status is not null)
+            companiesQuery = companiesQuery.Where("Status == @0", request.Status);
+        if (request.SortFilter is not null)
+            companiesQuery = companiesQuery.OrderBy(request.SortFilter);
+        HttpContext.SetCountHeader(await companiesQuery.CountAsync(cancel));
+
+        var result = await companiesQuery.ProjectToType<CompanyResult>()
             .ToArrayAsync(cancel);
 
-        HttpContext.SetCountHeader(await Context.Set<Company>()
-            .Where(c => c.Status == request.Status)
-            .CountAsync(cancel));
-
-        return companies;
+        return result;
     }
 }
