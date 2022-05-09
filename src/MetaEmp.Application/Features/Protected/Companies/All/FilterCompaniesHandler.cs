@@ -21,7 +21,7 @@ public class FilterCompaniesHandler : AuthorizedRequestHandler<FilterCompaniesRe
         var companiesQuery = Context.Set<Company>().AsQueryable();
 
         if (request.Name is not null)
-            companiesQuery = companiesQuery.Where($"Name == @0", request.Name);
+            companiesQuery = companiesQuery.Where("Name == @0", request.Name);
         if (request.Status is not null)
             companiesQuery = companiesQuery.Where("Status == @0", request.Status);
         if (request.SortFilter is not null)

@@ -19,7 +19,7 @@ public class CreateCompanyHandler : AuthorizedRequestHandler<CreateCompanyReques
         company.OwnerId = Guid.Parse("0DB1B904-6663-49A0-0DED-08DA2DC17E1A");
         
         company.Created = DateTime.UtcNow;
-        company.Status = ApprovingStatus.NotApproved;
+        company.Status = ApprovingStatus.Pending;
         
         var createdEntity = await Context.Set<Company>().AddAsync(company);
 
