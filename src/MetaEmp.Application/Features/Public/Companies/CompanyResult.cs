@@ -12,6 +12,7 @@ public class CompanyResult
     public string LogoId { get; set; } = default!;
     public short EmployersCount { get; set; }
     public Guid OwnerId { get; set; }
+    public DateTime Created { get; set; }
     public ApprovingStatus Status { get; set; }
     public string? RejectedReason { get; set; }
 }
