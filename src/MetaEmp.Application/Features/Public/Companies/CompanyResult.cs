@@ -11,5 +11,4 @@ public class CompanyResult
     public short EmployersCount { get; set; }
     public Guid OwnerId { get; set; }
     public bool Approved { get; set; }
-
 }

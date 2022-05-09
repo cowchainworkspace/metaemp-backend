@@ -1,7 +1,10 @@
-﻿using MetaEmp.Core.Abstractions.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using MetaEmp.Core.Abstractions.Entities;
+using MetaEmp.Data.SqlSever.Enums;
 
 namespace MetaEmp.Data.SqlSever.Entities.CompanyEntities;
 
+[Table("Companies")]
 public class Company : IEntity
 {
     public Guid Id { get; set; }
@@ -10,7 +13,9 @@ public class Company : IEntity
     public string WebSite { get; set; } = default!;
     public string Socials { get; set; } = default!;
     public short EmployersCount { get; set; }
-    public bool Approved { get; set; }
+    
+    public ApprovingStatus Status { get; set; }
+    public string? RejectedReason { get; set; }
 
     #region Owner
 

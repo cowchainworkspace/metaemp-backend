@@ -1,3 +1,3 @@
 ﻿namespace MetaEmp.Application.Features.Protected.Companies.ToggleApprove;
 
-public record ToggleApproveResult;
+public record SetCompanyStatusResult;
