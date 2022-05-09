@@ -7,5 +7,6 @@ namespace MetaEmp.Application.Features.Protected.Companies.All;
 
 public class FilterCompaniesRequest : IRequest<CompanyResult[]>
 {
-    public ApprovingStatus Status { get; set; }
+    public string? Name { get; set; }
+    public ApprovingStatus? Status { get; set; }
 }
