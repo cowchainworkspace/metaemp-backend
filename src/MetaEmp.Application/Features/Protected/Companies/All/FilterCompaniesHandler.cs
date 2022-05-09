@@ -24,7 +24,8 @@ public class FilterCompaniesHandler : AuthorizedRequestHandler<FilterCompaniesRe
             companiesQuery = companiesQuery.Where($"Name == @0", request.Name);
         if (request.Status is not null)
             companiesQuery = companiesQuery.Where("Status == @0", request.Status);
-
+        if (request.SortFilter is not null)
+            companiesQuery = companiesQuery.OrderBy(request.SortFilter);
         HttpContext.SetCountHeader(await companiesQuery.CountAsync(cancel));
 
         var result = await companiesQuery.ProjectToType<CompanyResult>()
