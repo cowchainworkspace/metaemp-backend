@@ -1,4 +1,5 @@
-﻿using MetaEmp.Application.Abstractions;
+﻿using MediatR;
+using MetaEmp.Application.Abstractions;
 using MetaEmp.Data.SqlSever;
 using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
 using MetaEmp.Data.SqlSever.Enums;
@@ -6,13 +7,13 @@ using MetaEmp.Data.SqlSever.Extensions;
 
 namespace MetaEmp.Application.Features.Protected.Companies.ToggleApprove;
 
-public class SetCompanyStatusHandler : AuthorizedRequestHandler<SetCompanyStatusRequest, SetCompanyStatusResult>
+public class SetCompanyStatusHandler : AuthorizedRequestHandler<SetCompanyStatusRequest, Unit>
 {
     public SetCompanyStatusHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    protected override async Task<SetCompanyStatusResult> Handle(SetCompanyStatusRequest request)
+    protected override async Task<Unit> Handle(SetCompanyStatusRequest request)
     {
         var company = await Context.Set<Company>().FirstOr404Async(c => c.Id == request.Id);
 
@@ -21,6 +22,6 @@ public class SetCompanyStatusHandler : AuthorizedRequestHandler<SetCompanyStatus
 
         await Context.SaveChangesAsync();
 
-        return new();
+        return Unit.Value;
     }
 }

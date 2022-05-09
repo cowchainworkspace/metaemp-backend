@@ -17,9 +17,14 @@ public class SpecialistConfiguration : IEntityTypeConfiguration<Specialist>
         builder.HasMany(s => s.Educations)
             .WithOne(e => e.Specialist)
             .HasForeignKey(e => e.SpecialistId);
-        
+
         builder.HasMany(s => s.Experiences)
             .WithOne(e => e.Specialist)
             .HasForeignKey(e => e.SpecialistId);
+
+        builder.HasOne(s => s.Company)
+            .WithMany(c => c.Specialists)
+            .HasForeignKey(s => s.CompanyId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

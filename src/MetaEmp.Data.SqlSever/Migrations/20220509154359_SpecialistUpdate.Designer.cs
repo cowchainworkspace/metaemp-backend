@@ -4,6 +4,7 @@ using MetaEmp.Data.SqlSever.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetaEmp.Data.SqlSever.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    partial class SqlServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220509154359_SpecialistUpdate")]
+    partial class SpecialistUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -359,9 +361,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Property<string>("About")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -392,8 +391,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -566,18 +563,11 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", b =>
                 {
-                    b.HasOne("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", "Company")
-                        .WithMany("Specialists")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.AppUser", "User")
                         .WithOne("SpecialistProfile")
                         .HasForeignKey("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("User");
                 });
@@ -632,11 +622,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Navigation("Roles");
 
                     b.Navigation("SpecialistProfile");
-                });
-
-            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", b =>
-                {
-                    b.Navigation("Specialists");
                 });
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", b =>
