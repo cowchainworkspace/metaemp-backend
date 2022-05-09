@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using MetaEmp.Core.Abstractions.Entities;
+using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 using MetaEmp.Data.SqlSever.Enums;
 
 namespace MetaEmp.Data.SqlSever.Entities.CompanyEntities;
@@ -11,13 +12,15 @@ public class Company : IEntity
     public string Name { get; set; } = default!;
     public string Description { get; set; } = default!;
     public string WebSite { get; set; } = default!;
-    public string Socials { get; set; } = default!;
+    public string? Socials { get; set; } = default!;
     public short EmployersCount { get; set; }
     public string OwnerWallet { get; set; } = default!;
     public DateTime Created { get; set; }
-    
+
     public ApprovingStatus Status { get; set; }
     public string? RejectedReason { get; set; }
+
+    public virtual ICollection<Specialist>? Specialists { get; set; }
 
     #region Owner
 

@@ -5,10 +5,12 @@ using MetaEmp.Application.Features.Public.Specialists.Create;
 using MetaEmp.Application.Features.Public.Specialists.Delete;
 using MetaEmp.Application.Features.Public.Specialists.One;
 using MetaEmp.Application.Features.Public.Specialists.Update;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MetaEmp.Api.Areas.Public.Controllers;
 
+[AllowAnonymous]
 public class SpecialistController : ApiController
 {
     [HttpGet]

@@ -12,7 +12,8 @@ public class SpecialistResult
     public string? Title { get; set; }
     public string? UserStatus { get; set; }
     public string? About { get; set; }
-    public string? ListOfSkillsJson { get; set; }
+    public List<string> ListOfSkills { get; set; }
+    public DateTime Created { get; set; }
 
     public ApprovingStatus Status { get; set; }
     public string? RejectedReason { get; set; }
