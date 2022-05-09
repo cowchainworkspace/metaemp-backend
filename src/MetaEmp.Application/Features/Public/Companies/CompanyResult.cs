@@ -1,4 +1,6 @@
-﻿namespace MetaEmp.Application.Features.Public.Companies;
+﻿using MetaEmp.Data.SqlSever.Enums;
+
+namespace MetaEmp.Application.Features.Public.Companies;
 
 public class CompanyResult
 {
@@ -10,5 +12,7 @@ public class CompanyResult
     public string LogoId { get; set; } = default!;
     public short EmployersCount { get; set; }
     public Guid OwnerId { get; set; }
-    public bool Approved { get; set; }
+    public DateTime Created { get; set; }
+    public ApprovingStatus Status { get; set; }
+    public string? RejectedReason { get; set; }
 }
