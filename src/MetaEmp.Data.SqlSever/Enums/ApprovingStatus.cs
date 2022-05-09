@@ -2,7 +2,7 @@
 
 public enum ApprovingStatus
 {
-    NotApproved,
-    Approved,
+    Pending,
+    Active,
     Rejected
 }
