@@ -13,6 +13,7 @@ public class Company : IEntity
     public string WebSite { get; set; } = default!;
     public string Socials { get; set; } = default!;
     public short EmployersCount { get; set; }
+    public string OwnerWallet { get; set; } = default!;
     public DateTime Created { get; set; }
     
     public ApprovingStatus Status { get; set; }

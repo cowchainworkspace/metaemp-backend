@@ -23,6 +23,7 @@ public class AppUser : IdentityUser<Guid>, IEntity
 	public override DateTimeOffset? LockoutEnd { get; set; }
 	public override bool LockoutEnabled { get; set; }
 	public override int AccessFailedCount { get; set; }
+	public string WalletAddress { get; set; } = default!;
 	public DateTime Registered { get; set; } = DateTime.UtcNow;
 	
 	

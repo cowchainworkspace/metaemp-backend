@@ -11,6 +11,7 @@ public class CompanyResult
     public Socials Socials { get; set; } = default!;
     public string LogoId { get; set; } = default!;
     public short EmployersCount { get; set; }
+    public string OwnerWallet { get; set; } = default!;
     public Guid OwnerId { get; set; }
     public DateTime Created { get; set; }
     public ApprovingStatus Status { get; set; }
