@@ -1,4 +1,5 @@
-﻿using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
+﻿using MetaEmp.Data.SqlSever.Entities;
+using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,8 +12,9 @@ public class SpecialistConfiguration : IEntityTypeConfiguration<Specialist>
         builder.HasKey(s => s.Id);
 
         builder.HasOne(s => s.User)
-            .WithOne(u => u.SpecialistProfile)
-            .HasForeignKey<Specialist>(s => s.UserId);
+            .WithOne(au => au.SpecialistProfile)
+            .HasForeignKey<Specialist>(s => s.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(s => s.Educations)
             .WithOne(e => e.Specialist)
@@ -22,9 +24,9 @@ public class SpecialistConfiguration : IEntityTypeConfiguration<Specialist>
             .WithOne(e => e.Specialist)
             .HasForeignKey(e => e.SpecialistId);
 
-        builder.HasOne(s => s.Company)
-            .WithMany(c => c.Specialists)
-            .HasForeignKey(s => s.CompanyId)
-            .OnDelete(DeleteBehavior.NoAction);
+        builder.HasMany(s => s.Approvals)
+            .WithOne(wa => wa.Specialist)
+            .HasForeignKey(s => s.SpecialistId);
+        
     }
 }

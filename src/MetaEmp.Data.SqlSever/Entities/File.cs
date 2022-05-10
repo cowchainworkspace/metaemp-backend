@@ -1,7 +1,9 @@
-﻿using MetaEmp.Core.Abstractions.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using MetaEmp.Core.Abstractions.Entities;
 
 namespace MetaEmp.Data.SqlSever.Entities;
 
+[Table("Files")]
 public class File : IEntity
 {
     public Guid Id { get; set; }

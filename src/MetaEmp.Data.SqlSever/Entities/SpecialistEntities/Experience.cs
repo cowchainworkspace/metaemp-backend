@@ -11,7 +11,7 @@ public class Experience : IEntity
     public Guid Id { get; set; }
     public string Position { get; set; } = default!;
     public EmploymentType Type { get; set; }
-    public string? CompanyName { get; set; }
+    public string CompanyName { get; set; } = default!;
     public string Location { get; set; } = default!;
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
