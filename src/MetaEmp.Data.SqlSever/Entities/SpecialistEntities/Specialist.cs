@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using MetaEmp.Core.Abstractions.Entities;
-using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
 using MetaEmp.Data.SqlSever.Enums;
 
 namespace MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
@@ -20,17 +19,15 @@ public class Specialist : IEntity
     public ApprovingStatus Status { get; set; }
     public string? RejectedReason { get; set; }
 
+    #region User
+
     public Guid UserId { get; set; }
     public virtual AppUser? User { get; set; }
+
+    #endregion
 
 
     public virtual ICollection<Education>? Educations { get; set; }
     public virtual ICollection<Experience>? Experiences { get; set; }
-
-    #region Company
-
-    public Guid? CompanyId { get; set; }
-    public virtual Company? Company { get; set; }
-
-    #endregion
+    public virtual ICollection<WorkApproval>? Approvals { get; set; }
 }

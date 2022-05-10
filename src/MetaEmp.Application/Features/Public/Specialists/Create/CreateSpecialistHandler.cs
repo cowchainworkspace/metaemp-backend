@@ -19,7 +19,7 @@ public class CreateSpecialistHandler : DbRequestHandler<CreateSpecialistRequest,
         
         
         //TODO: add checking for userId
-        specialist.UserId = Guid.Parse("0DB1B904-6663-49A0-0DED-08DA2DC17E1A");
+        specialist.UserId = Guid.Parse("09ABD51D-B0AB-4395-7681-08DA32A20000");
 
         
         var createdEntity = await Context.Set<Specialist>().AddAsync(specialist);
