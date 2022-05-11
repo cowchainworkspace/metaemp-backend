@@ -5,6 +5,7 @@ using MetaEmp.Application.Features.Public.Companies.Create;
 using MetaEmp.Application.Features.Public.Companies.Update;
 using MetaEmp.Application.Features.Public.Specialists;
 using MetaEmp.Application.Features.Public.Specialists.Create;
+using MetaEmp.Application.Features.Public.Specialists.Update;
 using MetaEmp.Application.Features.Public.Users;
 using MetaEmp.Core;
 using MetaEmp.Data.SqlSever.Entities;
@@ -25,9 +26,10 @@ internal class MappingRegister : IRegister
 
         config.NewConfig<CreateCompanyRequest, Company>()
             .Map(c => c.Socials, cc => Serialize(cc.Socials));
-        
+
         config.NewConfig<UpdateCompanyRequest, Company>()
-            .Map(c => c.Socials, cc => Serialize(cc.Socials));
+            .Map(c => c.Socials, cc => Serialize(cc.Socials))
+            .IgnoreNullValues(true);
 
         config.NewConfig<Company, CompanyResult>()
             .Map(c => c.Socials, cr => Deserialize<Socials>(cr.Socials));
@@ -44,5 +46,9 @@ internal class MappingRegister : IRegister
 
         config.NewConfig<CreateSpecialistRequest, Specialist>()
             .Map(s => s.ListOfSkillsJson, cs => Serialize(cs.ListOfSkills));
+
+        config.NewConfig<UpdateSpecialistRequest, Specialist>()
+            .Map(s => s.ListOfSkillsJson, us => Serialize(us.ListOfSkills))
+            .IgnoreNullValues(true);
     }
 }
