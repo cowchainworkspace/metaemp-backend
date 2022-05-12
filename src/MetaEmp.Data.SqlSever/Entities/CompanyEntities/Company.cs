@@ -20,12 +20,13 @@ public class Company : IEntity
     public ApprovingStatus Status { get; set; }
     public string? RejectedReason { get; set; }
 
-    public virtual ICollection<Specialist>? Specialists { get; set; }
+    public virtual ICollection<Experience>? SpecialistExperiences { get; set; }
+    public virtual ICollection<WorkApproval>? Approvals { get; set; }
 
     #region Owner
 
     public Guid OwnerId { get; set; }
-    public AppUser Owner { get; set; }
+    public virtual AppUser? Owner { get; set; }
 
     #endregion
 

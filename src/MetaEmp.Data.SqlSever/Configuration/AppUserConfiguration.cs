@@ -1,4 +1,6 @@
 ﻿using MetaEmp.Data.SqlSever.Entities;
+using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
+using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,7 +21,5 @@ internal class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
 				.HasForeignKey(e => e.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 		builder.HasMany(e => e.RefreshTokens).WithOne(e => e.User)
 				.HasForeignKey(e => e.UserId).OnDelete(DeleteBehavior.Cascade);
-
-		builder.ToTable("AppUsers");
 	}
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetaEmp.Data.SqlSever.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20220509120916_OwnerWallet")]
-    partial class OwnerWallet
+    [Migration("20220511075503_CompanyProfile")]
+    partial class CompanyProfile
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,9 +146,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<Guid>("SpecialistId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -158,7 +155,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("WalletAddress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -170,7 +166,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AppUsers", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.AppUserRole", b =>
@@ -224,7 +220,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Socials")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
@@ -265,7 +260,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Files", (string)null);
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Education", b =>
@@ -316,6 +311,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CompanyName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("CurrentlyWork")
@@ -362,6 +358,9 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Property<string>("About")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ListOfSkillsJson")
                         .HasColumnType("nvarchar(max)");
 
@@ -394,6 +393,33 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsUnique();
 
                     b.ToTable("Specialists");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.WorkApproval", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Receiver")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("SpecialistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("SpecialistId");
+
+                    b.ToTable("WorkApproval");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -521,7 +547,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .HasForeignKey("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", "LogoId");
 
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.AppUser", "Owner")
-                        .WithMany("Companies")
+                        .WithMany("CompanyProfiles")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -545,7 +571,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Experience", b =>
                 {
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", "Company")
-                        .WithMany()
+                        .WithMany("SpecialistExperiences")
                         .HasForeignKey("CompanyId");
 
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "Specialist")
@@ -568,6 +594,23 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.WorkApproval", b =>
+                {
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", "Company")
+                        .WithMany("Approvals")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "Specialist")
+                        .WithMany("Approvals")
+                        .HasForeignKey("SpecialistId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Specialist");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -613,7 +656,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.AppUser", b =>
                 {
-                    b.Navigation("Companies");
+                    b.Navigation("CompanyProfiles");
 
                     b.Navigation("RefreshTokens");
 
@@ -622,8 +665,17 @@ namespace MetaEmp.Data.SqlSever.Migrations
                     b.Navigation("SpecialistProfile");
                 });
 
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", b =>
+                {
+                    b.Navigation("Approvals");
+
+                    b.Navigation("SpecialistExperiences");
+                });
+
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", b =>
                 {
+                    b.Navigation("Approvals");
+
                     b.Navigation("Educations");
 
                     b.Navigation("Experiences");

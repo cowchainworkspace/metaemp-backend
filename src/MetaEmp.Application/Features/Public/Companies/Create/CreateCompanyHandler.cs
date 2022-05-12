@@ -16,7 +16,7 @@ public class CreateCompanyHandler : AuthorizedRequestHandler<CreateCompanyReques
         var company = request.Adapt<Company>();
         
         // TODO: remove this with userId from jwt token
-        company.OwnerId = Guid.Parse("0DB1B904-6663-49A0-0DED-08DA2DC17E1A");
+        company.OwnerId = Guid.Parse("09ABD51D-B0AB-4395-7681-08DA32A20000");
         
         company.Created = DateTime.UtcNow;
         company.Status = ApprovingStatus.Pending;

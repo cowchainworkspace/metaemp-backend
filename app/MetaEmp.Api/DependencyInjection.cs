@@ -46,6 +46,7 @@ public static class DependencyInjection
 	{
 		// To serialize enum members as strings in json
 		options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+		options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 	}
 }
 
