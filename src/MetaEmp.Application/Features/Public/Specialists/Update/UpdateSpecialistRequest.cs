@@ -10,11 +10,8 @@ public record UpdateSpecialistRequest : IRequest<Unit>
     public Guid Id { get; set; }
     public string Name { get; set; } = default!;
     public string Surname { get; set; } = default!;
-    public string? Title { get; set; }
-    public string? UserStatus { get; set; }
-    public string? About { get; set; }
-    public string? ListOfSkillsJson { get; set; }
-    
-    public ApprovingStatus Status { get; set; }
-    public string? RejectedReason { get; set; }
+    public string Title { get; set; } = default!;
+    public string UserStatus { get; set; } = default!;
+    public string About { get; set; } = default!;
+    public List<string> ListOfSkills { get; set; } = default!;
 }

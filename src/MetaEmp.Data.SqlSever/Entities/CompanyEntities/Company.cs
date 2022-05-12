@@ -26,7 +26,7 @@ public class Company : IEntity
     #region Owner
 
     public Guid OwnerId { get; set; }
-    public CompanyOwner Owner { get; set; }
+    public virtual AppUser? Owner { get; set; }
 
     #endregion
 

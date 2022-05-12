@@ -1,4 +1,5 @@
 ﻿using MetaEmp.Api.Abstractions;
+using MetaEmp.Application.Features.Protected.Companies.All;
 using MetaEmp.Application.Features.Public.Companies;
 using MetaEmp.Application.Features.Public.Companies.All;
 using MetaEmp.Application.Features.Public.Companies.Create;
@@ -20,8 +21,8 @@ public class CompaniesController : ApiController
     [HttpGet]
     [AllowAnonymous]
     // [ResponseCache(Duration = CacheDurations.Default)]
-    public async Task<CompanyResult[]> GetCompanies(CancellationToken cancel)
-        => await Mediator.Send(new GetCompaniesRequest(), cancel);
+    public async Task<CompanyResult[]> GetCompanies(FilterCompaniesRequest request, CancellationToken cancel)
+        => await Mediator.Send(request, cancel);
 
     [HttpPost]
     [AllowAnonymous]

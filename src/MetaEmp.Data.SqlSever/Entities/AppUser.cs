@@ -30,9 +30,9 @@ public class AppUser : IdentityUser<Guid>, IEntity
     public DateTime Registered { get; set; } = DateTime.UtcNow;
 
     public virtual Specialist? SpecialistProfile { get; set; }
-    public virtual CompanyOwner? CompanyOwnerProfile { get; set; }
 
 
+    public virtual ICollection<Company>? CompanyProfiles { get; set; }
     public virtual ICollection<AppUserRole>? Roles { get; set; }
     public virtual ICollection<AppRefreshToken>? RefreshTokens { get; set; }
 }
