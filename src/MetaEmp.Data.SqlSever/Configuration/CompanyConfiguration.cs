@@ -14,7 +14,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(c => c.Description).HasMaxLength(1024);
 
         builder.HasOne(c => c.Owner)
-            .WithMany(co => co.CompanyProfiles)
+            .WithMany(co => co.Companies)
             .HasForeignKey(c => c.OwnerId);
 
         builder.HasMany(c => c.SpecialistExperiences)

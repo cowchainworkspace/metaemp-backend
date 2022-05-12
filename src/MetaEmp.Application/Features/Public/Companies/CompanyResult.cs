@@ -9,7 +9,7 @@ public class CompanyResult
     public string Description { get; set; } = default!;
     public string WebSite { get; set; } = default!;
     public Socials Socials { get; set; } = default!;
-    public string LogoId { get; set; } = default!;
+    public Guid? LogoId { get; set; } = default!;
     public short EmployersCount { get; set; }
     public string OwnerWallet { get; set; } = default!;
     public Guid OwnerId { get; set; }
