@@ -17,6 +17,7 @@ public class SpecialistResult
 
     public ApprovingStatus Status { get; set; }
     public string? RejectedReason { get; set; }
+    public Guid UserId { get; set; }
 
     public ICollection<EducationResult>? Educations { get; set; }
     public ICollection<ExperienceResult>? Experiences { get; set; }

@@ -4,6 +4,7 @@ using MetaEmp.Data.SqlSever.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetaEmp.Data.SqlSever.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    partial class SqlServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220512091217_Courses")]
+    partial class Courses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,7 +257,7 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("LogoId")
+                    b.Property<Guid>("LogoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -602,7 +604,9 @@ namespace MetaEmp.Data.SqlSever.Migrations
                 {
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.File", "Logo")
                         .WithMany()
-                        .HasForeignKey("LogoId");
+                        .HasForeignKey("LogoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.AppUser", "User")
                         .WithMany("CourseProfiles")
