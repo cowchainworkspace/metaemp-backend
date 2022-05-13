@@ -21,10 +21,6 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             .WithOne(e => e.Company)
             .HasForeignKey(e => e.CompanyId);
 
-        builder.HasMany(c => c.Approvals)
-            .WithOne(wa => wa.Company)
-            .HasForeignKey(wa => wa.CompanyId);
-
         builder.HasOne(c => c.Logo)
             .WithOne()
             .HasForeignKey<Company>(c => c.LogoId);

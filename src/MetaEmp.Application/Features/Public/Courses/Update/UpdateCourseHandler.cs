@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using MediatR;
 using MetaEmp.Application.Abstractions;
-using MetaEmp.Data.SqlSever.Entities.EducationEntities;
+using MetaEmp.Data.SqlSever.Entities.CoursesEntities;
 using MetaEmp.Data.SqlSever.Extensions;
 
 namespace MetaEmp.Application.Features.Public.Courses.Update;

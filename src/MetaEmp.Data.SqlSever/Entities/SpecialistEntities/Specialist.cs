@@ -29,5 +29,4 @@ public class Specialist : IEntity
 
     public virtual ICollection<Education>? Educations { get; set; }
     public virtual ICollection<Experience>? Experiences { get; set; }
-    public virtual ICollection<WorkApproval>? Approvals { get; set; }
 }

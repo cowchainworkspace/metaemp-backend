@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using MetaEmp.Core.Abstractions.Entities;
 using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
-using MetaEmp.Data.SqlSever.Entities.EducationEntities;
+using MetaEmp.Data.SqlSever.Entities.CoursesEntities;
 using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 using Microsoft.AspNetCore.Identity;
 
@@ -30,12 +30,9 @@ public class AppUser : IdentityUser<Guid>, IEntity
     public DateTime Registered { get; set; } = DateTime.UtcNow;
 
 
-    #region Specialist
-
-    public Guid SpecialistId { get; set; }
+    //one-to-one
     public virtual Specialist? SpecialistProfile { get; set; }
 
-    #endregion
 
     public virtual ICollection<CourseProfile>? CourseProfiles { get; set; }
     public virtual ICollection<Company>? Companies { get; set; }

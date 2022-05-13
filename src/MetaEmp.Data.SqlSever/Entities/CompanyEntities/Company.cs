@@ -21,7 +21,6 @@ public class Company : IEntity
     public string? RejectedReason { get; set; }
 
     public virtual ICollection<Experience>? SpecialistExperiences { get; set; }
-    public virtual ICollection<WorkApproval>? Approvals { get; set; }
 
     #region Owner
 

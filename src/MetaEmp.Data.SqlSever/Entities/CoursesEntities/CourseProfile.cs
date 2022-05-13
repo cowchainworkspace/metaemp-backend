@@ -1,8 +1,10 @@
-﻿using MetaEmp.Core.Abstractions.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using MetaEmp.Core.Abstractions.Entities;
 using MetaEmp.Data.SqlSever.Enums;
 
-namespace MetaEmp.Data.SqlSever.Entities.EducationEntities;
+namespace MetaEmp.Data.SqlSever.Entities.CoursesEntities;
 
+[Table("CourseProfiles")]
 public class CourseProfile : IEntity
 {
     public Guid Id { get; set; }

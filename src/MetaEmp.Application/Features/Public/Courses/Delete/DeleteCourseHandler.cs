@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using MetaEmp.Application.Abstractions;
-using MetaEmp.Data.SqlSever.Entities.EducationEntities;
+using MetaEmp.Data.SqlSever.Entities.CoursesEntities;
 
 namespace MetaEmp.Application.Features.Public.Courses.Delete;
 

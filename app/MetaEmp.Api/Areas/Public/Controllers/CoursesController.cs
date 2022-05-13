@@ -14,8 +14,8 @@ namespace MetaEmp.Api.Areas.Public.Controllers;
 public class CoursesController : ApiController
 {
     [HttpGet]
-    public async Task<CourseResult[]> GetAll()
-        => await Mediator.Send(new GetCoursesRequest());
+    public async Task<CourseResult[]> GetAll(GetCoursesRequest request)
+        => await Mediator.Send(request);
 
     [HttpGet("{id}")]
     public async Task<CourseResult> GetOne([FromRoute] Guid id)

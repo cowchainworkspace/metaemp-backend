@@ -13,7 +13,7 @@ using MetaEmp.Application.Features.Public.Users;
 using MetaEmp.Core;
 using MetaEmp.Data.SqlSever.Entities;
 using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
-using MetaEmp.Data.SqlSever.Entities.EducationEntities;
+using MetaEmp.Data.SqlSever.Entities.CoursesEntities;
 using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 
 namespace MetaEmp.Application;
