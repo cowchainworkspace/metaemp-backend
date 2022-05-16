@@ -10,16 +10,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetaEmp.Application.Features.Public.Specialists.Approvals.Create;
 
-public class CreateSpecialistApprovalHandler : DbRequestHandler<CreateSpecialistApprovalRequest, Unit>
+public class CreateSpecialistApprovalHandler : DbRequestHandler<CreateSpecialistApprovalRequest, Experience>
 {
     public CreateSpecialistApprovalHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    protected override async Task<Unit> Handle(CreateSpecialistApprovalRequest request)
+    protected override async Task<Experience> Handle(CreateSpecialistApprovalRequest request)
     {
-        //TODO: Add rights checking
-        var specialistId = Guid.Parse("");
+        //TODO: Replace
+        var specialistId = Guid.Parse("EEA3155D-607A-43EC-BA4D-08DA335A2F0D");
 
         if (await Context.Set<Company>().CountAsync(c => c.Id == request.CompanyId) == 0)
             throw new ValidationFailedException("CompanyId", "No such company");
@@ -34,11 +34,12 @@ public class CreateSpecialistApprovalHandler : DbRequestHandler<CreateSpecialist
 
         experienceEntity.Receiver = Receiver.Company;
         experienceEntity.Status = ApprovingStatus.Pending;
+        experienceEntity.SpecialistId = specialistId;
 
-        await Context.Set<Experience>().AddAsync(experienceEntity);
+        var createdEntity = await Context.Set<Experience>().AddAsync(experienceEntity);
 
         await Context.SaveChangesAsync();
 
-        return Unit.Value;
+        return createdEntity.Entity;
     }
 }

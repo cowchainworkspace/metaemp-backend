@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MetaEmp.Core.Abstractions.Context;
+using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 

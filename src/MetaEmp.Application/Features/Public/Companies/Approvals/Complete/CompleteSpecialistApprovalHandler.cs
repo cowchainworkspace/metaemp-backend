@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MetaEmp.Application.Abstractions;
 using MetaEmp.Core.Exceptions;
+using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
 using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 using MetaEmp.Data.SqlSever.Enums;
 using MetaEmp.Data.SqlSever.Extensions;
@@ -16,8 +17,8 @@ public class CompleteSpecialistApprovalHandler : DbRequestHandler<CompleteSpecia
 
     protected override async Task<Unit> Handle(CompleteSpecialistApprovalRequest request)
     {
-        //TODO: Add rights checking
-        var companyOwnerId = Guid.Parse("");
+        //TODO: Replace
+        var companyOwnerId = Guid.Parse("09ABD51D-B0AB-4395-7681-08DA32A20000");
 
         var approval = await Context.Set<Experience>()
             .Include(e => e.Company)
@@ -26,7 +27,7 @@ public class CompleteSpecialistApprovalHandler : DbRequestHandler<CompleteSpecia
         if (approval.Status is ApprovingStatus.Active or ApprovingStatus.Rejected)
             throw new ValidationFailedException("Request already approved");
         if (approval.Company!.OwnerId != companyOwnerId || approval.Receiver != Receiver.Company)
-            throw new ForbidException("You have no permissions to do this");
+            throw new PermissionsException();
 
         approval.Status = ApprovingStatus.Active;
 
