@@ -32,7 +32,6 @@ public class DeclineSpecialistApprovalHandler : DbRequestHandler<DeclineSpeciali
         approval.RejectedReason = request.Message;
 
         await Context.SaveChangesAsync();
-        
         return Unit.Value;
     }
 }

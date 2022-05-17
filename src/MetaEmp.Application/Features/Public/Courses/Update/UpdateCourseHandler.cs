@@ -20,7 +20,6 @@ public class UpdateCourseHandler : AuthorizedRequestHandler<UpdateCourseRequest,
         request.Adapt(course);
 
         await Context.SaveChangesAsync();
-        
         return Unit.Value;
     }
 }

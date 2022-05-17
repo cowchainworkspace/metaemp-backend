@@ -24,7 +24,6 @@ public class CreateCourseHandler : AuthorizedRequestHandler<CreateCourseRequest,
         var createdEntity = await Context.Set<CourseProfile>().AddAsync(course);
 
         await Context.SaveChangesAsync();
-
         return createdEntity.Entity.Adapt<CourseResult>();
     }
 }

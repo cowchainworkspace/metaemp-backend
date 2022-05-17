@@ -30,7 +30,6 @@ public class DeclineCompanyApprovalHandler : DbRequestHandler<DeclineCompanyAppr
         approval.RejectedReason = request.Message;
 
         await Context.SaveChangesAsync();
-
         return Unit.Value;
     }
 }

@@ -72,5 +72,5 @@ internal class MappingRegister : IRegister
     private static string Serialize<T>(T data) => JsonSerializer.Serialize(data, JsonConventions.CamelCase);
 
     private static T Deserialize<T>(string? data)
-        => JsonSerializer.Deserialize<T>(data, JsonConventions.CamelCase);
+        => JsonSerializer.Deserialize<T>(data!, JsonConventions.CamelCase);
 }

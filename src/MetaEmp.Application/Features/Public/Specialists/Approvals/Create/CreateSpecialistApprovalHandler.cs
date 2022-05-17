@@ -39,7 +39,6 @@ public class CreateSpecialistApprovalHandler : DbRequestHandler<CreateSpecialist
         var createdEntity = await Context.Set<Experience>().AddAsync(experienceEntity);
 
         await Context.SaveChangesAsync();
-
         return createdEntity.Entity;
     }
 }

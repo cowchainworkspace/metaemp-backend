@@ -32,7 +32,6 @@ public class CompleteSpecialistApprovalHandler : DbRequestHandler<CompleteSpecia
         approval.Status = ApprovingStatus.Active;
 
         await Context.SaveChangesAsync();
-        
         return Unit.Value;
     }
 }

@@ -16,7 +16,6 @@ public class DeleteCourseHandler : AuthorizedRequestHandler<DeleteCourseRequest,
             .Remove(new CourseProfile {Id = request.CourseId});
 
         await Context.SaveChangesAsync();
-
         return Unit.Value;
     }
 }

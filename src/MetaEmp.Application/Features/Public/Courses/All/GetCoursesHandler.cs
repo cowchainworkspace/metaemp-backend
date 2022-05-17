@@ -30,6 +30,5 @@ public class GetCoursesHandler : DbRequestHandler<GetCoursesRequest, CourseResul
 
         return await coursesQuery.ProjectToType<CourseResult>()
             .ToArrayAsync(cancel);
-        ;
     }
 }

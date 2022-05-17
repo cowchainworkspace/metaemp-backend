@@ -29,7 +29,6 @@ public class CompleteCompanyApprovalHandler : DbRequestHandler<CompleteCompanyAp
         approval.Status = ApprovingStatus.Active;
 
         await Context.SaveChangesAsync();
-
         return Unit.Value;
     }
 }

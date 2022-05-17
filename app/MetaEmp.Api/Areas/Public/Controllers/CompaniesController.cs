@@ -27,6 +27,8 @@ public partial class CompaniesController : ApiController
     public async Task<ActionResult<CompanyResult>> CreateCompany([FromBody] CreateCompanyRequest request)
     {
         var result = await Mediator.Send(request);
+        // TODO: review - do not use hardcode, use CreatedAtAction or CreatedAtRoute
+        // return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity.Adapt<CompanyResult>());
         return Created($"/v1/companies/{result.Id}", result);
     }
 

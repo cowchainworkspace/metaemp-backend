@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetaEmp.Api.Areas.Public.Controllers;
 
+// TODO: review - approvals is not a companies. Move it to CompanyApprovalsController for example or something like this
 public partial class CompaniesController
 {
+    // TODO: review - I recommend to use IEnumerable<> instead of array[]
     [HttpGet("{id:guid}/approvals")]
     public async Task<ExperienceResult[]> GetAll([FromRoute] Guid id)
         => await Mediator.Send(new GetCompanyApprovalsRequest(id));

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetaEmp.Api.Areas.Public.Controllers;
 
+// TODO: review - the same situation. It should be SpecialistApprovalController
+// or create one single ApprovesController
 public partial class SpecialistController
 {
     [HttpGet("approvals")]
