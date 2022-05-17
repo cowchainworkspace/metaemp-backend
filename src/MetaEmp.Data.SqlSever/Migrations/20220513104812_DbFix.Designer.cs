@@ -4,6 +4,7 @@ using MetaEmp.Data.SqlSever.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetaEmp.Data.SqlSever.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    partial class SqlServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220513104812_DbFix")]
+    partial class DbFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -352,9 +354,6 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("CurrentlyWork")
                         .HasColumnType("bit");
 
@@ -372,24 +371,11 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Receiver")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RejectedReason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SpecialistFullname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("SpecialistId")
+                    b.Property<Guid>("SpecialistId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -447,6 +433,33 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsUnique();
 
                     b.ToTable("Specialists");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.WorkApproval", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Receiver")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("SpecialistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("SpecialistId");
+
+                    b.ToTable("WorkApproval");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -620,7 +633,9 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
                     b.HasOne("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "Specialist")
                         .WithMany("Experiences")
-                        .HasForeignKey("SpecialistId");
+                        .HasForeignKey("SpecialistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
 
@@ -636,6 +651,23 @@ namespace MetaEmp.Data.SqlSever.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.WorkApproval", b =>
+                {
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", "Company")
+                        .WithMany("Approvals")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", "Specialist")
+                        .WithMany("Approvals")
+                        .HasForeignKey("SpecialistId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Specialist");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -694,11 +726,15 @@ namespace MetaEmp.Data.SqlSever.Migrations
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.CompanyEntities.Company", b =>
                 {
+                    b.Navigation("Approvals");
+
                     b.Navigation("SpecialistExperiences");
                 });
 
             modelBuilder.Entity("MetaEmp.Data.SqlSever.Entities.SpecialistEntities.Specialist", b =>
                 {
+                    b.Navigation("Approvals");
+
                     b.Navigation("Educations");
 
                     b.Navigation("Experiences");

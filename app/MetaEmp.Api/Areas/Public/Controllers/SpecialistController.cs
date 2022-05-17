@@ -11,34 +11,41 @@ using Microsoft.AspNetCore.Mvc;
 namespace MetaEmp.Api.Areas.Public.Controllers;
 
 [AllowAnonymous]
-public class SpecialistController : ApiController
+public partial class SpecialistController : ApiController
 {
     [HttpGet]
-    public async Task<SpecialistResult[]> GetAll()
-        => await Mediator.Send(new GetSpecialistsRequest());
+    public async Task<SpecialistResult[]> GetAllSpecialists(FilterSpecialistsRequest request)
+        => await Mediator.Send(request);
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     public async Task<SpecialistResult> GetOne([FromRoute] Guid id)
         => await Mediator.Send(new GetSpecialistRequest(id));
 
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreateSpecialistRequest request)
-    {
+    {   
         var result = await Mediator.Send(request);
-        return Created($"/v1/Specialist/{result.Id}", result);
+        return CreatedAtAction(nameof(GetOne), new { id = result.Id }, result);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     public async Task<ActionResult> Update([FromRoute] Guid id, [FromBody] UpdateSpecialistRequest request)
     {
         await Mediator.Send(request with {Id = id});
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     public async Task<ActionResult> Delete([FromRoute] Guid id)
     {
         await Mediator.Send(new DeleteSpecialistRequest(id));
         return NoContent();
     }
+
+    // [HttpGet("{companyId:guid}")]
+    // public async Task<IActionResult> CreateApproval(Guid companyId)
+    // {
+    //     await Mediator.Send(new CreateSpecialistApprovalRequest(companyId));
+    //     return NoContent();
+    // }
 }

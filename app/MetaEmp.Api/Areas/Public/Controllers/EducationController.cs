@@ -11,11 +11,11 @@ namespace MetaEmp.Api.Areas.Public.Controllers;
 
 public class EducationController : ApiController
 {
-    [HttpGet("{specialistId}")]
-    public async Task<EducationResult[]> GetAll(Guid specialistId)
+    [HttpGet("{specialistId:guid}")]
+    public async Task<EducationResult[]> GetAll([FromRoute] Guid specialistId)
         => await Mediator.Send(new GetEducationsRequest(specialistId));
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     public async Task<EducationResult> GetOne([FromRoute] Guid id)
         => await Mediator.Send(new GetEducationRequest(id));
 
@@ -23,17 +23,17 @@ public class EducationController : ApiController
     public async Task<ActionResult> Create([FromBody] CreateEducationRequest request)
     {
         var result = await Mediator.Send(request);
-        return Created($"/v1/education/{result.Id}", result);
+        return CreatedAtAction(nameof(GetOne), new { id = result.Id }, result);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     public async Task<ActionResult> Update([FromRoute] Guid id, [FromBody] UpdateEducationRequest request)
     {
         await Mediator.Send(request with {Id = id});
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     public async Task<ActionResult> Delete([FromRoute] Guid id)
     {
         await Mediator.Send(new DeleteEducationRequest(id));

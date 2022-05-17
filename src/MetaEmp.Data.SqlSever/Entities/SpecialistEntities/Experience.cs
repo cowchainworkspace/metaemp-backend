@@ -12,16 +12,22 @@ public class Experience : IEntity
     public string Position { get; set; } = default!;
     public EmploymentType Type { get; set; }
     public string CompanyName { get; set; } = default!;
+    public string SpecialistFullname { get; set; } = default!;
+
     public string Location { get; set; } = default!;
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
     public bool CurrentlyWork { get; set; }
     public string? Description { get; set; }
+    public Receiver Receiver { get; set; }
+    public ApprovingStatus Status { get; set; }
+    public string? RejectedReason { get; set; }
+
     
-    
+    public DateTime Created { get; set; } = DateTime.UtcNow;
     public Guid? CompanyId { get; set; }
-    public virtual Company? Company { get; set; } 
-    
-    public Guid SpecialistId { get; set; }
+    public virtual Company? Company { get; set; }
+
+    public Guid? SpecialistId { get; set; }
     public virtual Specialist? Specialist { get; set; }
 }

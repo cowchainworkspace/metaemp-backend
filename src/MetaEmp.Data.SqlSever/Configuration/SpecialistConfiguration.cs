@@ -23,10 +23,5 @@ public class SpecialistConfiguration : IEntityTypeConfiguration<Specialist>
         builder.HasMany(s => s.Experiences)
             .WithOne(e => e.Specialist)
             .HasForeignKey(e => e.SpecialistId);
-
-        builder.HasMany(s => s.Approvals)
-            .WithOne(wa => wa.Specialist)
-            .HasForeignKey(s => s.SpecialistId);
-        
     }
 }

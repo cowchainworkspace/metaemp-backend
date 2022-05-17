@@ -1,6 +1,6 @@
 ﻿using Mapster;
 using MetaEmp.Application.Abstractions;
-using MetaEmp.Data.SqlSever.Entities.EducationEntities;
+using MetaEmp.Data.SqlSever.Entities.CoursesEntities;
 using MetaEmp.Data.SqlSever.Enums;
 
 namespace MetaEmp.Application.Features.Public.Courses.Create;
@@ -24,7 +24,6 @@ public class CreateCourseHandler : AuthorizedRequestHandler<CreateCourseRequest,
         var createdEntity = await Context.Set<CourseProfile>().AddAsync(course);
 
         await Context.SaveChangesAsync();
-
         return createdEntity.Entity.Adapt<CourseResult>();
     }
 }

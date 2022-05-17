@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using MetaEmp.Data.SqlSever.Enums;
 
-namespace MetaEmp.Application.Features.Public.Courses.All;
+namespace MetaEmp.Application.Features.Public.Specialists.All;
 
-public record GetCoursesRequest : IRequest<CourseResult[]>
+public record FilterSpecialistsRequest : IRequest<SpecialistResult[]>
 {
     public string? Name { get; set; }
     public string? OrderBy { get; set; }

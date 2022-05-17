@@ -13,7 +13,7 @@ using MetaEmp.Application.Features.Public.Users;
 using MetaEmp.Core;
 using MetaEmp.Data.SqlSever.Entities;
 using MetaEmp.Data.SqlSever.Entities.CompanyEntities;
-using MetaEmp.Data.SqlSever.Entities.EducationEntities;
+using MetaEmp.Data.SqlSever.Entities.CoursesEntities;
 using MetaEmp.Data.SqlSever.Entities.SpecialistEntities;
 
 namespace MetaEmp.Application;
@@ -72,5 +72,5 @@ internal class MappingRegister : IRegister
     private static string Serialize<T>(T data) => JsonSerializer.Serialize(data, JsonConventions.CamelCase);
 
     private static T Deserialize<T>(string? data)
-        => JsonSerializer.Deserialize<T>(data, JsonConventions.CamelCase);
+        => JsonSerializer.Deserialize<T>(data!, JsonConventions.CamelCase);
 }

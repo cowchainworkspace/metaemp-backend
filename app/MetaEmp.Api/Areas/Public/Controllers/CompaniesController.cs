@@ -11,29 +11,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetaEmp.Api.Areas.Public.Controllers;
 
-public class CompaniesController : ApiController
+[AllowAnonymous]
+public partial class CompaniesController : ApiController
 {
     [HttpGet("{id:guid}")]
-    [AllowAnonymous]
     public async Task<CompanyResult> GetCompany([FromRoute] Guid id)
         => await Mediator.Send(new GetCompanyRequest(id));
 
     [HttpGet]
-    [AllowAnonymous]
     // [ResponseCache(Duration = CacheDurations.Default)]
     public async Task<CompanyResult[]> GetCompanies(FilterCompaniesRequest request, CancellationToken cancel)
         => await Mediator.Send(request, cancel);
 
     [HttpPost]
-    [AllowAnonymous]
     public async Task<ActionResult<CompanyResult>> CreateCompany([FromBody] CreateCompanyRequest request)
     {
         var result = await Mediator.Send(request);
+        return CreatedAtAction(nameof(GetCompany), new { id = result.Id }, result);
         return Created($"/v1/companies/{result.Id}", result);
     }
 
     [HttpPut("{id:guid}")]
-    [AllowAnonymous]
     public async Task<StatusCodeResult> UpdateCompany([FromRoute] Guid id,
         [FromBody] UpdateCompanyRequest request)
     {
@@ -42,7 +40,6 @@ public class CompaniesController : ApiController
     }
 
     [HttpDelete("{id:guid}")]
-    [AllowAnonymous]
     public async Task<StatusCodeResult> DeleteCompany(Guid id)
     {
         await Mediator.Send(new DeleteCompanyRequest(id));
