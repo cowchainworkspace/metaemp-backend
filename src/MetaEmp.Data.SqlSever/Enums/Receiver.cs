@@ -1,6 +1,6 @@
 ﻿namespace MetaEmp.Data.SqlSever.Enums;
 
-public enum Receiver
+public enum Receiver : byte
 {
     Company,
     Specialist

@@ -1,7 +1,6 @@
 ﻿using MetaEmp.Api.Abstractions;
 using MetaEmp.Application.Features.Protected.Companies.All;
 using MetaEmp.Application.Features.Public.Companies;
-using MetaEmp.Application.Features.Public.Companies.All;
 using MetaEmp.Application.Features.Public.Companies.Create;
 using MetaEmp.Application.Features.Public.Companies.Delete;
 using MetaEmp.Application.Features.Public.Companies.One;

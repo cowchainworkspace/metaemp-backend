@@ -23,10 +23,10 @@ public class CompleteSpecialistApprovalHandler : DbRequestHandler<CompleteSpecia
         var approval = await Context.Set<Experience>()
             .Include(e => e.Company)
             .FirstOr404Async(a => a.Id == request.ExperienceId);
-        
+
         if (approval.Status is ApprovingStatus.Active or ApprovingStatus.Rejected)
             throw new ValidationFailedException("Request already approved");
-        if (approval.Company!.OwnerId != companyOwnerId || approval.Receiver != Receiver.Company)
+        if (approval.CompanyId is null || approval.Company!.OwnerId != companyOwnerId || approval.Receiver != Receiver.Company)
             throw new PermissionsException();
 
         approval.Status = ApprovingStatus.Active;

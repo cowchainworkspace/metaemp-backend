@@ -1,6 +1,6 @@
 ﻿namespace MetaEmp.Data.SqlSever.Enums;
 
-public enum ApprovingStatus
+public enum ApprovingStatus : byte
 {
     Pending,
     Active,
