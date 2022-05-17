@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetaEmp.Api.Areas.Public.Controllers;
 
-// TODO: review - the same situation. It should be SpecialistApprovalController
-// or create one single ApprovesController
 public partial class SpecialistController
 {
     [HttpGet("approvals")]
@@ -19,7 +17,7 @@ public partial class SpecialistController
     public async Task<IActionResult> Create([FromBody] CreateSpecialistApprovalRequest request)
     {
         var result = await Mediator.Send(request);
-        return CreatedAtAction(nameof(GetAll), result);
+        return CreatedAtAction(nameof(GetAll), "Companies", null, result);
     }
 
     [HttpGet("approvals/complete/{id:guid}")]

@@ -26,7 +26,7 @@ public class FilesController : ApiController
         CancellationToken cancel)
     {
         var result = await Mediator.Send(new UploadFileRequest(file, target, targetId), cancel);
-        return Created($"/v1/files/{result.Id}", result);
+        return CreatedAtAction(nameof(GetFile), new { id = result.Id }, result);
     }
 
     [HttpDelete("{id:guid}")]

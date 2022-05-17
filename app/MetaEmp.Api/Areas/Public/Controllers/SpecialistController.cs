@@ -14,7 +14,7 @@ namespace MetaEmp.Api.Areas.Public.Controllers;
 public partial class SpecialistController : ApiController
 {
     [HttpGet]
-    public async Task<SpecialistResult[]> GetAll(FilterSpecialistsRequest request)
+    public async Task<SpecialistResult[]> GetAllSpecialists(FilterSpecialistsRequest request)
         => await Mediator.Send(request);
 
     [HttpGet("{id:guid}")]
@@ -25,7 +25,7 @@ public partial class SpecialistController : ApiController
     public async Task<ActionResult> Create([FromBody] CreateSpecialistRequest request)
     {   
         var result = await Mediator.Send(request);
-        return Created($"/v1/Specialist/{result.Id}", result);
+        return CreatedAtAction(nameof(GetOne), new { id = result.Id }, result);
     }
 
     [HttpPut("{id:guid}")]

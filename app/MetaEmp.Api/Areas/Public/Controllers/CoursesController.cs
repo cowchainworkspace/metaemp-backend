@@ -25,7 +25,7 @@ public class CoursesController : ApiController
     public async Task<ActionResult> Create([FromBody] CreateCourseRequest request)
     {
         var result = await Mediator.Send(request);
-        return Created($"/v1/Course/{result.Id}", result); // TODO: review - CreatedAtAction
+        return CreatedAtAction(nameof(GetOne), new { id = result.Id }, result);
     }
 
     [HttpPut("{id:guid}")]
