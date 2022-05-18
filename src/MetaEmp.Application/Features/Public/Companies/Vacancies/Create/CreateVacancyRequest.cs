@@ -3,4 +3,7 @@ using MediatR;
 
 namespace MetaEmp.Application.Features.Public.Companies.Vacancies.Create;
 
-public record CreateVacancyRequest([property: JsonIgnore] Guid CompanyId) : IRequest<VacancyResult>;
+public record CreateVacancyRequest([property: JsonIgnore] Guid CompanyId,
+    string Title,
+    string[] Requirements,
+    string Description) : IRequest<VacancyResult>;

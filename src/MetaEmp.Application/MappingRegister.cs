@@ -3,6 +3,9 @@ using Mapster;
 using MetaEmp.Application.Features.Public.Companies;
 using MetaEmp.Application.Features.Public.Companies.Create;
 using MetaEmp.Application.Features.Public.Companies.Update;
+using MetaEmp.Application.Features.Public.Companies.Vacancies;
+using MetaEmp.Application.Features.Public.Companies.Vacancies.Create;
+using MetaEmp.Application.Features.Public.Companies.Vacancies.Update;
 using MetaEmp.Application.Features.Public.Courses;
 using MetaEmp.Application.Features.Public.Courses.Create;
 using MetaEmp.Application.Features.Public.Courses.Update;
@@ -29,6 +32,18 @@ internal class MappingRegister : IRegister
         config.NewConfig<AppUser, User>()
             .Map(m => m.Id, s => s.Id)
             .Map(m => m.Username, s => s.UserName);
+    }
+
+    private void VacancyMappings(TypeAdapterConfig config)
+    {
+        config.NewConfig<Vacancy, VacancyResult>()
+            .Map(vr => vr.Requirements, v => Deserialize<string[]>(v.RequirementsJson));
+
+        config.NewConfig<CreateVacancyRequest, Vacancy>()
+            .Map(v => v.RequirementsJson, cv => Serialize(cv.Requirements));
+        
+        config.NewConfig<UpdateVacancyRequest, Vacancy>()
+            .Map(v => v.RequirementsJson, cv => Serialize(cv.Requirements));
     }
 
     private void CompanyMappings(TypeAdapterConfig config)
